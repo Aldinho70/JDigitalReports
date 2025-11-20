@@ -1,5 +1,6 @@
 <?php
 require "../../core/db.php";
+require_once __DIR__ . "../../config/cors.php";
 
 $db = new DB();
 $data = $db->query("SELECT * FROM reportes")->fetchAll(PDO::FETCH_ASSOC);
