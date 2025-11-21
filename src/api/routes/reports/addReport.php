@@ -1,33 +1,47 @@
 <?php
 require "../../core/db.php";
-require_once __DIR__ . "../../config/cors.php";
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json; charset=utf-8");
 
 $db = new DB();
 
-// Leer body JSON
 $body = json_decode(file_get_contents("php://input"), true);
 
-// Validar datos mínimos
 if (!$body) {
     echo json_encode(["error" => "JSON inválido"]);
     exit;
 }
 
-$sql = "INSERT INTO `reportes` 
-(`fechaReporte`, `monitorista`, `cliente`, `Idunidad`, `nombreUnidad`, `tipoReporte`, `comentario`)
-VALUES (?, ?, ?, ?, ?, ?, ?)";
+$requeridos = ["monitorista", "cliente", "Idunidad", "tipoReporte"];
+foreach ($requeridos as $campo) {
+    if (empty($body[$campo])) {
+        echo json_encode(["error" => "Falta el campo: $campo"]);
+        exit;
+    }
+}
 
 date_default_timezone_set('America/Monterrey');
 $fechaReporte = date('Y-m-d H:i:s');
 
-$db->query($sql, [
-    $fechaReporte,
-    $body["monitorista"] ?? null,
-    $body["cliente"] ?? null,
-    $body["Idunidad"] ?? null,
-    $body["nombreUnidad"] ?? "",
-    $body["tipoReporte"] ?? "",
-    $body["comentario"] ?? ""
-]);
+$sql = "INSERT INTO `reportes`
+(`fechaReporte`, `monitorista`, `cliente`, `Idunidad`, `nombreUnidad`, `tipoReporte`, `comentario`)
+VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-echo json_encode(["status" => "ok"]);
+try {
+    $db->query($sql, [
+        $fechaReporte,
+        $body["monitorista"],
+        $body["cliente"],
+        $body["Idunidad"],
+        $body["nombreUnidad"] ?? "",
+        $body["tipoReporte"],
+        $body["comentario"] ?? ""
+    ]);
+
+    echo json_encode(["status" => "ok"]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
+}
