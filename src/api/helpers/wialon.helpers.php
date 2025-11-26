@@ -69,8 +69,8 @@ function testSid($sid) {
 }
 
 /** Obtener SID válido (cache o login) */
-function getSid() {
-    global $config;
+function getSid( $token ) {
+    // global $config;
 
     // 1. Intentar usar cache
     $sid = loadCachedSid();
@@ -79,7 +79,7 @@ function getSid() {
     }
 
     // 2. Si no sirve, hacer login nuevo
-    $login = callWialon("token/login", ["token" => $config["token"]]);
+    $login = callWialon("token/login", ["token" => $token]);
 
     if (!isset($login["eid"])) {
         return null; // error

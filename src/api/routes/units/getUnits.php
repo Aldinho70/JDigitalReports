@@ -4,8 +4,15 @@ require_once __DIR__ . "/../../helpers/wialon.helpers.php";
 
 header("Content-Type: application/json; charset=utf-8");
 
-// 1. Obtener SID válido
-$sid = getSid();
+$token = $_GET["token"] ?? null;
+
+if (!$token) {
+    echo json_encode(["error" => "Falta el parámetro 'token' en la URL"]);
+    exit;
+}
+
+// 1. Obtener SID usando el token recibido
+$sid = getSid($token);
 
 if (!$sid) {
     echo json_encode(["error" => "No se pudo obtener el SID"]);
