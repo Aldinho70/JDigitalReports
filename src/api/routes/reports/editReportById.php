@@ -37,7 +37,7 @@ WHERE id = ?";
 
 try {
     $db->query($sql, [
-        $fechaReporte,
+        $body["fechaReporte"],
         $body["monitorista"],
         $body["cliente"],
         $body["Idunidad"],
