@@ -18,7 +18,7 @@ if (empty($body["id"])) {
 
 $id = intval($body["id"]);
 
-$sql = "SELECT * FROM view_tickets_reportes WHERE id = ?";
+$sql = "SELECT * FROM view_tickets_reports WHERE id = ?";
 
 try {
     $data = $db->query($sql, [$id])->fetchAll(PDO::FETCH_ASSOC);
