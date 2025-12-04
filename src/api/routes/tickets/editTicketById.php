@@ -12,7 +12,7 @@ if (!$body) {
 }
 
 // Validar campos obligatorios
-$requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion"];
+$requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
@@ -26,6 +26,7 @@ $sql = "UPDATE `tickets_soporte` SET
     accion = ?, 
     solucionado = ?, 
     resolucion = ?
+    estado = ?
 WHERE id_ticket = ?";
 
 try {
@@ -34,6 +35,7 @@ try {
         $body["accion"],
         $body["solucionado"],
         $body["resolucion"],
+        $body["estado"],
         $body["id"]
     ]);
 
