@@ -25,7 +25,7 @@ $sql = "UPDATE `tickets_soporte` SET
     comentario_soporte = ?, 
     accion = ?, 
     solucionado = ?, 
-    resolucion = ?
+    resolucion = ?,
     estado = ?
 WHERE id_ticket = ?";
 
