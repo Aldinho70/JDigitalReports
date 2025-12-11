@@ -83,9 +83,9 @@ foreach ($targetAccount["rep"] as $report) {
         echo json_encode([
             "error" => false,
             "account" => $accountName,
-            "countId" => $idRess,
+            "resourceId" => $idRess,
             "reportName" => $reportName,
-            "reportId" => $report["id"]
+            "templateId" => $report["id"]
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         exit;
     }

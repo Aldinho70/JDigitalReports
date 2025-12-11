@@ -15,12 +15,19 @@ if (!$body) {
     exit;
 }
 
-$token       = $body["token"]       ?? "733a7307cd0dd55c139f57fcaa9269d33033EF2588751D51ECB53AA291A5B6501EF5426B";
-$resourceId  = $body["resourceId"]  ?? 28675002;
-$templateId  = $body["templateId"]  ?? 1;
-$objectId    = $body["objectId"]    ?? 29566197; //GAFI ABA VTAS GMZ
-$fromParam   = $body["from"]        ?? '2025-11-01 00:00:00';
-$toParam     = $body["to"]          ?? '2025-12-01 00:00:00';
+// $token       = $body["token"]       ?? "733a7307cd0dd55c139f57fcaa9269d33033EF2588751D51ECB53AA291A5B6501EF5426B";
+// $resourceId  = $body["resourceId"]  ?? 28675002;
+// $templateId  = $body["templateId"]  ?? 1;
+// $objectId    = $body["objectId"]    ?? 29566197; //GAFI ABA VTAS GMZ
+// $fromParam   = $body["from"]        ?? '2025-11-01 00:00:00';
+// $toParam     = $body["to"]          ?? '2025-12-01 00:00:00';
+
+$token       = $body["token"]       ?? NULL;
+$resourceId  = $body["resourceId"]  ?? NULL;
+$templateId  = $body["templateId"]  ?? NULL;
+$objectId    = $body["objectId"]    ?? NULL; //GAFI ABA VTAS GMZ
+$fromParam   = $body["from"]        ?? NULL;
+$toParam     = $body["to"]          ?? NULL;
 
 if (!$token || !$resourceId || !$templateId || !$objectId || !$fromParam || !$toParam) {
     echo json_encode([
