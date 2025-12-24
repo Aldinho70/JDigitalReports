@@ -18,7 +18,8 @@ $camposPermitidos = [
     "cliente",
     "monitorista",
     "tipoReporte",
-    "estado"
+    "estado",
+    "nombreUnidad"
 ];
 
 $campo = $body["campo"];
