@@ -26,6 +26,8 @@ $sql = "UPDATE asignaciones_tecnicos SET
             fecha_estimada_fin = ?,
             costo_tecnico = ?,
             costo_cliente = ?,
+            facturacion = ?,
+            fecha_limite_pago = ?,
             status = ?,
             comentarios = ?
         WHERE id_asignacion = ?";
@@ -36,6 +38,8 @@ try {
         $body["fecha_estimada_fin"],
         $body["costo_tecnico"],
         $body["costo_cliente"],
+        $body["facturacion"],
+        $body["fecha_limite_pago"],
         $body["status"],
         $body["comentarios"] ?? null,
         $body["id_asignacion"]

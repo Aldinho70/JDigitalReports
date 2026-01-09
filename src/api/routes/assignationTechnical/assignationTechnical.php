@@ -39,9 +39,11 @@ $sql = "INSERT INTO asignaciones_tecnicos (
             fecha_estimada_fin,
             costo_tecnico,
             costo_cliente,
+            facturacion,
+            fecha_limite_pago,
             status,
             comentarios
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 try {
     $db->query($sql, [
@@ -53,6 +55,8 @@ try {
         $body["fecha_estimada_fin"] ?? null,
         $body["costo_tecnico"] ?? null,
         $body["costo_cliente"] ?? null,
+        $body["facturacion"] ?? null,
+        $body["fecha_limite_pago"] ?? null,
         $status,
         $body["comentarios"] ?? null
     ]);
