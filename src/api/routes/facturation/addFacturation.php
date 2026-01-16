@@ -42,7 +42,7 @@ $sql = "INSERT INTO cobros_clientes (
             fecha_expedicion,
             fecha_limite_pago,
             comentarios_facturacion
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 try {
     $db->query($sql, [
