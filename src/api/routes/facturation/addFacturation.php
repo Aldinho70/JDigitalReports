@@ -20,9 +20,10 @@ $requeridos = [
     "tipo_cobro",
     "concepto",
     "costo_cliente",
-    "fecha_expedicion",
     "fecha_limite_pago"
 ];
+$fechaAsignacion = date('Y-m-d H:i:s');
+
 
 foreach ($requeridos as $campo) {
     if (!isset($body[$campo]) || $body[$campo] === "") {
@@ -38,7 +39,6 @@ $sql = "INSERT INTO cobros_clientes (
             tipo_cobro,
             concepto,
             costo_cliente,
-            fecha_expedicion,
             fecha_limite_pago,
             comentarios_facturacion
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -51,7 +51,7 @@ try {
         $body["tipo_cobro"],
         $body["concepto"],
         $body["costo_cliente"],
-        $body["fecha_expedicion"],
+        $fechaAsignacion,
         $body["fecha_limite_pago"],
         $body["comentarios_facturacion"] ?? null
     ]);
