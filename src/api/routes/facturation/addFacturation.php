@@ -41,8 +41,10 @@ $sql = "INSERT INTO cobros_clientes (
             costo_cliente,
             fecha_expedicion,
             fecha_limite_pago,
+            fecha_pago,
+            status_pago
             comentarios_facturacion
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 try {
     $db->query($sql, [
@@ -54,6 +56,8 @@ try {
         $body["costo_cliente"],
         $fechaAsignacion,
         $body["fecha_limite_pago"],
+        $body["status_pago"],
+        $body["fecha_pago"],
         $body["comentarios_facturacion"] ?? null
     ]);
 
@@ -61,3 +65,32 @@ try {
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
+
+
+// INSERT INTO `cobros_clientes` (`id`,
+//  `folio`,
+//  `ticket_id`,
+//  `cliente`,
+//  `tipo_cobro`,
+//  `concepto`,
+//  `costo_cliente`,
+//  `fecha_expedicion`,
+//  `fecha_limite_pago`,
+//  `fecha_pago`,
+//  `status_pago`,
+//  `created_at`,
+//  `updated_at`,
+//  `comentarios_facturacion`) VALUES (NULL,
+//  NULL,
+//  '',
+//  '',
+//  'servicio',
+//  '',
+//  '',
+//  current_timestamp(),
+//  current_timestamp(),
+//  NULL,
+//  'pendiente',
+//  current_timestamp(),
+//  current_timestamp(),
+//  'Pendiente de pago')
