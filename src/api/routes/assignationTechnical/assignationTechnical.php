@@ -20,7 +20,7 @@ $requeridos = ["ticket_id", "tecnico_id"];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
-        exit;
+        
     }
 }
 

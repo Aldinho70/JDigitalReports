@@ -16,7 +16,7 @@ $requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion"
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
-        exit;
+        
     }
 }
 

@@ -11,7 +11,7 @@ $body = json_decode(file_get_contents("php://input"), true);
 
 if (!$body || empty($body["id"])) {
     echo json_encode(["error" => "ID requerido"]);
-    exit;
+    
 }
 
 $sql = "UPDATE cobros_clientes SET
