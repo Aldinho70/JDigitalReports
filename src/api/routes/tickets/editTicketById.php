@@ -12,13 +12,13 @@ if (!$body) {
 }
 
 // Validar campos obligatorios
-$requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
-foreach ($requeridos as $campo) {
-    if (empty($body[$campo])) {
-        echo json_encode(["error" => "Falta el campo: $campo"]);
+// $requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
+// foreach ($requeridos as $campo) {
+//     if (empty($body[$campo])) {
+//         echo json_encode(["error" => "Falta el campo: $campo"]);
         
-    }
-}
+//     }
+// }
 
 // Consulta SQL corregida
 $sql = "UPDATE `tickets_soporte` SET

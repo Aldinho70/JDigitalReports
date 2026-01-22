@@ -16,13 +16,13 @@ if (!$body) {
 }
 
 // Campos obligatorios
-$requeridos = ["ticket_id", "tecnico_id"];
-foreach ($requeridos as $campo) {
-    if (empty($body[$campo])) {
-        echo json_encode(["error" => "Falta el campo: $campo"]);
+// $requeridos = ["ticket_id", "tecnico_id"];
+// foreach ($requeridos as $campo) {
+//     if (empty($body[$campo])) {
+//         echo json_encode(["error" => "Falta el campo: $campo"]);
         
-    }
-}
+//     }
+// }
 
 // Valores por defecto
 date_default_timezone_set('America/Monterrey');

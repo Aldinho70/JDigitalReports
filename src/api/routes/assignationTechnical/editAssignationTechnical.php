@@ -12,13 +12,13 @@ if (!$body) {
 }
 
 // Campos obligatorios
-$requeridos = ["id_asignacion", "tecnico_id", "fecha_estimada_fin", "costo_tecnico", "costo_cliente", "status"];
-foreach ($requeridos as $campo) {
-    if (!isset($body[$campo]) || $body[$campo] === "") {
-        echo json_encode(["error" => "Falta el campo: $campo"]);
+// $requeridos = ["id_asignacion", "tecnico_id", "fecha_estimada_fin", "costo_tecnico", "costo_cliente", "status"];
+// foreach ($requeridos as $campo) {
+//     if (!isset($body[$campo]) || $body[$campo] === "") {
+//         echo json_encode(["error" => "Falta el campo: $campo"]);
     
-    }
-}
+//     }
+// }
 
 // Query UPDATE
 $sql = "UPDATE asignaciones_tecnicos SET
