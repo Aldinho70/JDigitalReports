@@ -28,7 +28,7 @@ $fechaAsignacion = date('Y-m-d H:i:s');
 foreach ($requeridos as $campo) {
     if (!isset($body[$campo]) || $body[$campo] === "") {
         echo json_encode(["error" => "Falta el campo: $campo"]);
-        exit;
+        
     }
 }
 
