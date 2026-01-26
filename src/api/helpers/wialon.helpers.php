@@ -73,10 +73,10 @@ function getSid( $token ) {
     // global $config;
 
     // 1. Intentar usar cache
-    $sid = loadCachedSid();
-    if ($sid && testSid($sid)) {
-        return $sid;
-    }
+    // $sid = loadCachedSid();
+    // if ($sid && testSid($sid)) {
+    //     return $sid;
+    // }
 
     // 2. Si no sirve, hacer login nuevo
     $login = callWialon("token/login", ["token" => $token]);
@@ -88,7 +88,7 @@ function getSid( $token ) {
     $sid = $login["eid"];
 
     // Guardar cache
-    saveSid($sid);
+    // saveSid($sid);
 
     return $sid;
 }
