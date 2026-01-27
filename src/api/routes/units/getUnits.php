@@ -16,6 +16,7 @@ $sid = getSid($token);
 
 if (!$sid) {
     echo json_encode(["error" => "No se pudo obtener el SID"]);
+    echo json_encode(["error" => $sid]);
     exit;
 }
 
