@@ -32,10 +32,12 @@ if (!in_array($campo, $camposPermitidos)) {
 // ⚠️ El nombre del campo NO va como parámetro, va directo (ya validado)
 $sql = "
     SELECT 
-        $campo AS valor,
-        COUNT(*) AS total
+    $campo AS valor,
+    COUNT(*) AS total
     FROM reportes
     GROUP BY $campo
+    ORDER BY total DESC
+    LIMIT 5;
 ";
 
 $data = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);

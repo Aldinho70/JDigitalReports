@@ -2,6 +2,6 @@
 // --- CONFIG GLOBAL WIALON ---
 return [
     "wialon_url" => "https://hst-api.wialon.com/wialon/ajax.html",
-    "token" => "733a7307cd0dd55c139f57fcaa9269d33033EF2588751D51ECB53AA291A5B6501EF5426B",  // <-- cámbialo
+    "token" => "7b60204a4488c96efaae6732eb3f3db8732787E48CE92C4C42A068755E45696F22C9AE11",  // <-- cámbialo
     "sid_cache_file" => __DIR__ . "/sid_cache.json"
 ];

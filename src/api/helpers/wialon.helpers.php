@@ -69,7 +69,7 @@ function testSid($sid) {
 }
 
 /** Obtener SID válido (cache o login) */
-function getSid( $token ) {
+function getSid( $token ) {get
     // global $config;
 
     // 1. Intentar usar cache
