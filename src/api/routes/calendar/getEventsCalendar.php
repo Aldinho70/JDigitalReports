@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../config/cors.php";
 // Datos de conexión
 $servername = "208.109.27.194";
 $username   = "super";
