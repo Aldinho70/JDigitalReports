@@ -23,6 +23,10 @@ switch ($filter) {
         $where = "WHERE facturacion_tipo = 'servicio'";
         break;
 
+    case "nofacturados":
+        $where = "WHERE facturacion_tipo IS NULL OR facturacion_tipo <> 'servicio'";
+        break;
+
     case "allReportes":
     default:
         $where = "";
