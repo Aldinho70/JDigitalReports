@@ -19,6 +19,10 @@ switch ($filter) {
         $where = "WHERE solucionado = 0";
         break;
 
+    case "facturados":
+        $where = "WHERE facturacion_tipo = 'servicio'";
+        break;
+
     case "allReportes":
     default:
         $where = "";
