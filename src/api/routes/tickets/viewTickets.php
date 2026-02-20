@@ -12,7 +12,9 @@ $views = [
     "status"      => "view_status_tickets",
     "monitorista" => "view_tickets_monitorista",
     "revision"    => "vw_revision",
-    "allReports"  => "vw_reports_tickets"
+    "allReports"  => "view_tickets_reports",
+    "allReportsv2"  => "vw_reports_tickets",
+    
  ];
 
 // Validación
