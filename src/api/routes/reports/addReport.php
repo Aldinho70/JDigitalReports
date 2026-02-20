@@ -1,9 +1,7 @@
 <?php
 require "../../core/db.php";
+require_once __DIR__ . "/../../config/cors.php";
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=utf-8");
 
 $db = new DB();
@@ -15,7 +13,7 @@ if (!$body) {
     exit;
 }
 
-$requeridos = ["monitorista", "cliente", "Idunidad", "tipoReporte"];
+$requeridos = ["client_name", "report_type", "unit_name", "monitor_id"];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
@@ -26,19 +24,17 @@ foreach ($requeridos as $campo) {
 date_default_timezone_set('America/Monterrey');
 $fechaReporte = date('Y-m-d H:i:s');
 
-$sql = "INSERT INTO `reportes`
-(`fechaReporte`, `monitorista`, `cliente`, `Idunidad`, `nombreUnidad`, `tipoReporte`, `comentario`)
-VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO `reports` ( `report_date`, `monitor_id`, `client_name`, `unit_name`, `report_type`, `comment` ) 
+        VALUES ( ?, ?, ?, ?, ?, ? )";
 
 try {
     $db->query($sql, [
         $fechaReporte,
-        $body["monitorista"],
-        $body["cliente"],
-        $body["Idunidad"],
-        $body["nombreUnidad"] ?? "",
-        $body["tipoReporte"],
-        $body["comentario"] ?? ""
+        $body["monitor_id"],
+        $body["client_name"],
+        $body["unit_name"],
+        $body["report_type"] ?? "",
+        $body["comment"],
     ]);
 
     echo json_encode(["status" => "ok"]);
