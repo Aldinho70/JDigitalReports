@@ -1,13 +1,6 @@
 <?php
 require "../../core/db.php";
-// require_once __DIR__ . "../../config/cors.php";
-
-// Permitir solicitudes desde cualquier origen
-header("Access-Control-Allow-Origin: *");
-// Permitir métodos GET y POST
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-// Permitir headers personalizados si los necesitas
-header("Access-Control-Allow-Headers: Content-Type");
+require_once __DIR__ . "/../../config/cors.php";
 
 $db = new DB();
 
@@ -18,8 +11,9 @@ $type = $_GET["type"] ?? null;
 $views = [
     "status"      => "view_status_tickets",
     "monitorista" => "view_tickets_monitorista",
-    "revision"    => "vw_revision"
-];
+    "revision"    => "vw_revision",
+    "allReports"  => "vw_reports_tickets"
+ ];
 
 // Validación
 if (!$type || !isset($views[$type])) {

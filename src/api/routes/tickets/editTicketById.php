@@ -12,13 +12,13 @@ if (!$body) {
 }
 
 // Validar campos obligatorios
-// $requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
-// foreach ($requeridos as $campo) {
-//     if (empty($body[$campo])) {
-//         echo json_encode(["error" => "Falta el campo: $campo"]);
+$requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
+foreach ($requeridos as $campo) {
+    if (empty($body[$campo])) {
+        echo json_encode(["error" => "Falta el campo: $campo"]);
         
-//     }
-// }
+    }
+}
 
 // Consulta SQL corregida
 $sql = "UPDATE `tickets_soporte` SET
@@ -28,6 +28,9 @@ $sql = "UPDATE `tickets_soporte` SET
     resolucion = ?,
     estado = ?
 WHERE id_ticket = ?";
+
+// INSERT INTO `tickets` (`report_id`, `status`, `resolution_type`, `assigned_to_technician`, `is_billable`, `created_at`, `updated_at`) 
+//                VALUES ('', 'pending', NULL, '0', '0', current_timestamp(), current_timestamp())
 
 try {
     $db->query($sql, [
