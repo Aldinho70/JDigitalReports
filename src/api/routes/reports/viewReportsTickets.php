@@ -33,7 +33,7 @@ switch ($filter) {
         break;
 }
 
-$sql = "SELECT * FROM view_tickets_reports $where";
+$sql = "SELECT * FROM vw_reports_tickets $where";
 $data = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($data);
