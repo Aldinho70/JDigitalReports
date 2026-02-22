@@ -11,14 +11,14 @@ if (!$body) {
 }
 
 // Validar ID
-if (empty($body["id"])) {
-    echo json_encode(["error" => "Falta el campo: id"]);
+if (empty($body["id_report"])) {
+    echo json_encode(["error" => "Falta el campo: id del reporte"]);
     exit;
 }
 
-$id = intval($body["id"]);
+$id = intval($body["id_report"]);
 
-$sql = "SELECT * FROM view_tickets_reports WHERE id = ?";
+$sql = "SELECT * FROM vw_reports_tickets WHERE id_report = ?";
 
 try {
     $data = $db->query($sql, [$id])->fetchAll(PDO::FETCH_ASSOC);
