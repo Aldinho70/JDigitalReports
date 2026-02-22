@@ -12,34 +12,33 @@ if (!$body) {
 }
 
 // Validar campos obligatorios
-$requeridos = ["id", "comentario_soporte", "accion", "solucionado", "resolucion", "estado"];
+$requeridos = [ "report_id" ];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
-        
     }
 }
 
 // Consulta SQL corregida
-$sql = "UPDATE `tickets_soporte` SET
-    comentario_soporte = ?, 
-    accion = ?, 
-    solucionado = ?, 
-    resolucion = ?,
-    estado = ?
-WHERE id_ticket = ?";
-
-// INSERT INTO `tickets` (`report_id`, `status`, `resolution_type`, `assigned_to_technician`, `is_billable`, `created_at`, `updated_at`) 
-//                VALUES ('', 'pending', NULL, '0', '0', current_timestamp(), current_timestamp())
+$sql = "UPDATE 
+            `tickets` 
+        SET
+            status = ?, 
+            resolution_type = ?, 
+            assigned_to_technician = ?, 
+            is_billable = ?,
+            comment = ?
+        WHERE 
+            report_id = ?";
 
 try {
     $db->query($sql, [
-        $body["comentario_soporte"],
-        $body["accion"],
-        $body["solucionado"],
-        $body["resolucion"],
-        $body["estado"],
-        $body["id"]
+        $body["status"],
+        $body["resolution_type"],
+        $body["assigned_to_technician"],
+        $body["is_billable"],
+        $body["comment"],
+        $body["report_id"]
     ]);
 
     echo json_encode(["status" => "ok"]);
