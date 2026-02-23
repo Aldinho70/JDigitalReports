@@ -16,49 +16,39 @@ if (!$body) {
 }
 
 // Campos obligatorios
-// $requeridos = ["ticket_id", "tecnico_id"];
-// foreach ($requeridos as $campo) {
-//     if (empty($body[$campo])) {
-//         echo json_encode(["error" => "Falta el campo: $campo"]);
-        
-//     }
-// }
+$requeridos = ["report_id", "technician_id"];
+foreach ($requeridos as $campo) {
+    if (empty($body[$campo])) {
+        echo json_encode(["error" => "Falta el campo: $campo"]);
+    }
+}
 
 // Valores por defecto
 date_default_timezone_set('America/Monterrey');
 $fechaAsignacion = date('Y-m-d H:i:s');
-$status = "pendiente";
 
 // Query INSERT
-$sql = "INSERT INTO asignaciones_tecnicos (
-            ticket_id,
-            tecnico_id,
-            unidad,
-            cliente,
-            fecha_asignacion,
-            fecha_estimada_fin,
-            costo_tecnico,
-            costo_cliente,
-            facturacion,
-            fecha_limite_pago,
-            status,
-            comentarios
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO report_assignments (
+            `report_id`,
+            `technician_id`,
+            `service_cost`,
+            `payment_status`,
+            `assigned_at`,
+            `completed_at`,
+            `satus`,
+            `comment`) 
+        VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
 
 try {
     $db->query($sql, [
-        $body["ticket_id"],
-        $body["tecnico_id"],
-        $body["unidad"] ?? null,
-        $body["cliente"] ?? null,
+        $body["report_id"],
+        $body["technician_id"],
+        $body["service_cost"] ?? null,
+        $body["payment_status"] ?? null,
         $fechaAsignacion,
-        $body["fecha_estimada_fin"] ?? null,
-        $body["costo_tecnico"] ?? null,
-        $body["costo_cliente"] ?? null,
-        $body["facturacion"] ?? null,
-        $body["fecha_limite_pago"] ?? null,
-        $status,
-        $body["comentarios"] ?? null
+        $body["completed_at"] ?? null,
+        $body["satus"] ?? null,
+        $body["comment"] ?? null,
     ]);
 
     echo json_encode(["status" => "ok"]);
