@@ -12,37 +12,36 @@ if (!$body) {
 }
 
 // Campos obligatorios
-// $requeridos = ["id_asignacion", "tecnico_id", "fecha_estimada_fin", "costo_tecnico", "costo_cliente", "status"];
-// foreach ($requeridos as $campo) {
-//     if (!isset($body[$campo]) || $body[$campo] === "") {
-//         echo json_encode(["error" => "Falta el campo: $campo"]);
+$requeridos = ["assignation_id"];
+foreach ($requeridos as $campo) {
+    if (!isset($body[$campo]) || $body[$campo] === "") {
+        echo json_encode(["error" => "Falta el campo: $campo"]);
     
-//     }
-// }
+    }
+}
 
 // Query UPDATE
-$sql = "UPDATE asignaciones_tecnicos SET
-            tecnico_id = ?,
-            fecha_estimada_fin = ?,
-            costo_tecnico = ?,
-            costo_cliente = ?,
-            facturacion = ?,
-            fecha_limite_pago = ?,
-            status = ?,
-            comentarios = ?
-        WHERE id_asignacion = ?";
+$sql = "UPDATE 
+            `report_assignments` 
+        SET 
+            `technician_id` = ?,
+            `service_cost` = ?,
+            `payment_status` = ?,
+            `completed_at` = ?,
+            `comment` = ?,
+            `satus` = ?
+        WHERE 
+            `report_assignments`.`id` = ?;";
 
 try {
     $db->query($sql, [
-        $body["tecnico_id"],
-        $body["fecha_estimada_fin"],
-        $body["costo_tecnico"],
-        $body["costo_cliente"],
-        $body["facturacion"],
-        $body["fecha_limite_pago"],
-        $body["status"],
-        $body["comentarios"] ?? null,
-        $body["id_asignacion"]
+        $body["technician_id"],
+        $body["service_cost"],
+        $body["payment_status"],
+        $body["completed_at"],
+        $body["comment"],
+        $body["satus"],
+        $body["assignation_id"]
     ]);
 
     echo json_encode(["status" => "ok"]);
