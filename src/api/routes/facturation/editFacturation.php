@@ -9,33 +9,30 @@ header("Content-Type: application/json; charset=utf-8");
 $db = new DB();
 $body = json_decode(file_get_contents("php://input"), true);
 
-if (!$body || empty($body["id"])) {
-    echo json_encode(["error" => "ID requerido"]);
-    
+if (!$body || empty($body["id_payment"])) {
+    echo json_encode(["error" => "Id de factura requerido"]);
 }
 
-$sql = "UPDATE cobros_clientes SET
-            folio = ?,
-            tipo_cobro = ?,
-            concepto = ?,
-            costo_cliente = ?,
-            fecha_limite_pago = ?,
-            fecha_pago = ?,
-            status_pago = ?,
-            comentarios_facturacion = ?
+$sql = "UPDATE client_charges SET
+            is_billable = ?,
+            invoice_folio = ?,
+            amount = ?,
+            concept = ?,
+            payment_status = ?,
+            paid_at = ?,
+            comment = ?
         WHERE id = ?";
 
 try {
     $db->query($sql, [
-        $body["folio"] ?? null,
-        $body["tipo_cobro"] ?? null,
-        $body["concepto"] ?? null,
-        $body["costo_cliente"] ?? null,
-        $body["fecha_limite_pago"] ?? null,
-        $body["fecha_pago"] ?? null,
-        $body["status_pago"] ?? "pendiente",
-        $body["comentarios_facturacion"] ?? null,
-        $body["id"]
+        $body["is_billable"] ?? null,
+        $body["invoice_folio"] ?? null,
+        $body["amount"] ?? null,
+        $body["concept"] ?? null,
+        $body["payment_status"] ?? null,
+        $body["paid_at"] ?? null,
+        $body["comment"] ?? "pendiente",
+        $body["id_payment"]
     ]);
 
     echo json_encode(["status" => "ok"]);

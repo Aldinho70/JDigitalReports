@@ -14,83 +14,41 @@ if (!$body) {
     exit;
 }
 
-$requeridos = [
-    "ticket_id",
-    "cliente",
-    "tipo_cobro",
-    "concepto",
-    "costo_cliente",
-    "fecha_limite_pago"
-];
+$requeridos = [ "report_id" ];
 $fechaAsignacion = date('Y-m-d H:i:s');
 
+foreach ($requeridos as $campo) {
+    if (!isset($body[$campo]) || $body[$campo] === "") {
+        echo json_encode(["error" => "Falta el campo: $campo"]);
+    }
+}
 
-// foreach ($requeridos as $campo) {
-//     if (!isset($body[$campo]) || $body[$campo] === "") {
-//         echo json_encode(["error" => "Falta el campo: $campo"]);
-        
-//     }
-// }
-
-$sql = "INSERT INTO cobros_clientes (
-            folio,
-            ticket_id,
-            cliente,
-            tipo_cobro,
-            concepto,
-            costo_cliente,
-            fecha_expedicion,
-            fecha_limite_pago,
-            fecha_pago,
-            status_pago,
-            comentarios_facturacion
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO client_charges (
+            report_id,
+            is_billable,
+            invoice_folio,
+            amount,
+            concept,
+            payment_status,
+            due_date,
+            paid_at,
+            comment
+        ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 try {
     $db->query($sql, [
-        $body["folio"] ?? null,
-        $body["ticket_id"],
-        $body["cliente"],
-        $body["tipo_cobro"],
-        $body["concepto"],
-        $body["costo_cliente"],
+        $body["report_id"] ?? null,
+        $body["is_billable"],
+        $body["invoice_folio"],
+        $body["amount"],
+        $body["concept"],
+        $body["payment_status"],
         $fechaAsignacion,
-        $body["fecha_limite_pago"],
-        $body["status_pago"],
-        $body["fecha_pago"],
-        $body["comentarios_facturacion"] ?? null
+        $body["paid_at"],
+        $body["comment"],
     ]);
 
     echo json_encode(["status" => "ok"]);
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-
-// INSERT INTO `cobros_clientes` (`id`,
-//  `folio`,
-//  `ticket_id`,
-//  `cliente`,
-//  `tipo_cobro`,
-//  `concepto`,
-//  `costo_cliente`,
-//  `fecha_expedicion`,
-//  `fecha_limite_pago`,
-//  `fecha_pago`,
-//  `status_pago`,
-//  `created_at`,
-//  `updated_at`,
-//  `comentarios_facturacion`) VALUES (NULL,
-//  NULL,
-//  '',
-//  '',
-//  'servicio',
-//  '',
-//  '',
-//  current_timestamp(),
-//  current_timestamp(),
-//  NULL,
-//  'pendiente',
-//  current_timestamp(),
-//  current_timestamp(),
-//  'Pendiente de pago')
