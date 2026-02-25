@@ -6,7 +6,7 @@ $db = new DB();
 
 $body = json_decode(file_get_contents("php://input"), true);
 
-$requeridos = ["id", "nombre", "ciudad", "numero_telefono"];
+$requeridos = ["id", "name", "city", "phone"];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
@@ -14,17 +14,17 @@ foreach ($requeridos as $campo) {
     }
 }
 
-$sql = "UPDATE tecnicos SET
-            nombre = ?,
-            ciudad = ?,
-            numero_telefono = ?
+$sql = "UPDATE technicians SET
+            name = ?,
+            city = ?,
+            phone = ?
         WHERE id = ?";
 
 try {
     $db->query($sql, [
-        $body["nombre"],
-        $body["ciudad"],
-        $body["numero_telefono"],
+        $body["name"],
+        $body["city"],
+        $body["phone"],
         $body["id"]
     ]);
 

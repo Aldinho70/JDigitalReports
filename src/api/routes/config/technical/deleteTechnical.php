@@ -11,7 +11,7 @@ if (empty($body["id"])) {
     exit;
 }
 
-$sql = "DELETE FROM tecnicos WHERE id = ?";
+$sql = "DELETE FROM technicians WHERE id = ?";
 
 try {
     $db->query($sql, [$body["id"]]);

@@ -12,7 +12,7 @@ if (!$body) {
 }
 
 // Campos obligatorios
-$requeridos = ["nombre", "ciudad", "numero_telefono"];
+$requeridos = ["name", "city", "phone"];
 foreach ($requeridos as $campo) {
     if (empty($body[$campo])) {
         echo json_encode(["error" => "Falta el campo: $campo"]);
@@ -21,14 +21,14 @@ foreach ($requeridos as $campo) {
 }
 
 // Query INSERT
-$sql = "INSERT INTO tecnicos (nombre, ciudad, numero_telefono)
+$sql = "INSERT INTO technicians (name, city, phone)
         VALUES (?, ?, ?)";
 
 try {
     $db->query($sql, [
-        $body["nombre"],
-        $body["ciudad"],
-        $body["numero_telefono"]
+        $body["name"],
+        $body["city"],
+        $body["phone"]
     ]);
 
     echo json_encode(["status" => "ok"]);
