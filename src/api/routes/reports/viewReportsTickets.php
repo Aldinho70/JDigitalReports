@@ -11,20 +11,20 @@ $filter = $_GET['filter'] ?? 'allReportes';
 $where = "";
 
 switch ($filter) {
-    case "atendidas":
-        $where = "WHERE solucionado = 'si'";
+    case "completed":
+        $where = "WHERE status_ticket = 'completed'";
         break;
 
-    case "noAtendidas":
-        $where = "WHERE solucionado = 0";
+    case "pending":
+        $where = "WHERE status_ticket = 'pending'";
         break;
 
-    case "facturados":
-        $where = "WHERE facturacion_tipo = 'servicio'";
+    case "isBillable":
+        $where = "WHERE is_billable = 1";
         break;
 
-    case "nofacturados":
-        $where = "WHERE facturacion_tipo IS NULL OR facturacion_tipo <> 'servicio'";
+    case "noBillable":
+        $where = "WHERE is_billable = 0 OR is_billable IS NULL";
         break;
 
     case "allReportes":
