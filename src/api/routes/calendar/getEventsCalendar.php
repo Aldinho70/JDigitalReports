@@ -13,8 +13,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 $filter = $_GET['filter'] ?? '';
 
 if ($filter) {
-    $stmt = $conn->prepare("SELECT * FROM data WHERE title = ?");
-    $stmt->bind_param("s", $filter);
+    $stmt = $conn->prepare("SELECT * FROM data WHERE title LIKE '%$filter%' OR unidad LIKE '%$filter%'");
+    
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
