@@ -1,5 +1,4 @@
 <?php
-// require_once __DIR__ . "/../config/cors.php";
 
 require_once __DIR__ . "/../../config/cors.php";
 // Datos de conexión
@@ -11,14 +10,19 @@ $dbname     = "fullcalendar";
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+$filter = $_GET['filter'] ?? '';
+
+if ($filter) {
+    $stmt = $conn->prepare("SELECT * FROM data WHERE title = ?");
+    $stmt->bind_param("s", $filter);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $result = $conn->query("SELECT * FROM data");
 }
 
 // Consulta
-$sql = "SELECT * FROM data";
-$result = $conn->query($sql);
+// $result = $conn->query($sql);
 
 // Arreglo para guardar los datos
 $data = array();
