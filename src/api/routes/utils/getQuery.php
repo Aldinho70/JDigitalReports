@@ -6,7 +6,7 @@ $db = new DB();
 $body = json_decode(file_get_contents("php://input"), true);
 
 if (!$body) {
-    echo json_encode(["error" => "JSON inválido"]);
+    echo json_encode(["error" => "JSON invalido"]);
     exit;
 }
 
