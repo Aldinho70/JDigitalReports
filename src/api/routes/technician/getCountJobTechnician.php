@@ -12,6 +12,7 @@ try {
                                 VRT.technician_phone, 
                                 VRT.technician_city, 
                                 VRT.technician_id, 
+                                AVG( VRT.service_cost ) AS service_cost,
                                 COUNT(*) AS 'count_assignation'
                             FROM 
                                 vw_reports_technicians AS VRT 
