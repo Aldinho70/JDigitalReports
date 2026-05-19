@@ -92,3 +92,115 @@ function getSid( $token ) {
 
     return $sid;
 }
+
+/* ==========================================================
+   HISTORIAL DE MENSAJES
+   ========================================================== */
+function getUnitHistory(
+    $sid,
+    $unitId,
+    $dateFrom,
+    $dateTo
+) {
+
+    // =========================
+    // Fechas UNIX
+    // =========================
+    $from = strtotime($dateFrom);
+    $to   = strtotime($dateTo);
+
+    // =========================
+    // 1. LOAD INTERVAL
+    // =========================
+    $loadParams = [
+        "itemId" => (int)$unitId,
+        "timeFrom" => $from,
+        "timeTo" => $to,
+        "flags" => 1,
+        "flagsMask" => 65281,
+        "loadCount" => 0
+    ];
+
+    $load = callWialon(
+        "messages/load_interval",
+        $loadParams,
+        $sid
+    );
+
+    // =========================
+    // Error
+    // =========================
+    if (!isset($load["count"])) {
+        return $load;
+    }
+
+    // =========================
+    // 2. GET MESSAGES
+    // =========================
+    $messages = callWialon(
+        "messages/get_messages",
+        [
+            "indexFrom" => 0,
+            "indexTo" => $load["count"] - 1
+        ],
+        $sid
+    );
+
+    return [
+        "count" => $load["count"],
+        "messages" => $messages
+    ];
+}
+
+/* ==========================================================
+   HISTORIAL DE SENSOR
+   ========================================================== */
+
+function getSensorHistory(
+    $messages = [],
+    $parameter
+) {
+
+    $history = [];
+
+    foreach ($messages as $msg) {
+
+        // =========================
+        // Validar timestamp
+        // =========================
+        if (!isset($msg["t"])) {
+            continue;
+        }
+
+        // =========================
+        // Validar parámetros
+        // =========================
+        if (
+            !isset($msg["p"]) ||
+            !is_array($msg["p"])
+        ) {
+            continue;
+        }
+
+        // =========================
+        // Validar parámetro
+        // =========================
+        if (!isset($msg["p"][$parameter])) {
+            continue;
+        }
+
+        $timestamp = $msg["t"];
+        $value = $msg["p"][$parameter];
+
+        $history[] = [
+            "timestamp" => $timestamp,
+            "date" => date(
+                "Y-m-d H:i:s",
+                $timestamp
+            ),
+            "value" => $value
+        ];
+    }
+
+    return $history;
+}
