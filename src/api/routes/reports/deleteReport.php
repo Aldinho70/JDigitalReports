@@ -25,6 +25,7 @@ try {
     // 1️⃣ Eliminar tablas hijas (orden importa)
     $db->query("DELETE FROM report_assignments WHERE report_id = ?", [$id]);
     $db->query("DELETE FROM tickets WHERE report_id = ?", [$id]);
+    $db->query("DELETE FROM client_charges WHERE report_id = ?", [$id]);
 
     // 2️⃣ Eliminar padre
     $db->query("DELETE FROM reports WHERE id = ?", [$id]);
