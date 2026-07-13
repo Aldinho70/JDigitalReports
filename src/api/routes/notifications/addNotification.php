@@ -11,16 +11,24 @@ if (!$body) {
     exit;
 }
 
-// Consulta SQL corregida
-$sql = "INSERT INTO `notification_test` (`id`, `notification`) 
-        VALUES (null, ?)";
+$sql = "INSERT INTO notification_test (id, notification)
+        VALUES (NULL, ?)";
 
 try {
-    $db->query($sql, [
-        $body["notification"],
+
+    $notification = json_encode(
+        $body,
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+    );
+
+    $db->query($sql, [$notification]);
+
+    echo json_encode([
+        "status" => "ok"
     ]);
 
-    echo json_encode(["status" => "ok"]);
 } catch (Exception $e) {
-    echo json_encode(["error" => $e->getMessage()]);
+    echo json_encode([
+        "error" => $e->getMessage()
+    ]);
 }
